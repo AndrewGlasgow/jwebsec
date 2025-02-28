@@ -6,7 +6,7 @@ package jwebsec;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.1.1
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class Token {
@@ -65,7 +65,7 @@ public final class Token {
      * 
      * @return seconds until token expiration
      */
-    public long getSecondsUntilExpiration() {
-        return (expiryTime - System.currentTimeMillis()) / 1000;
+    public int getSecondsUntilExpiration() {
+        return (int)((expiryTime - System.currentTimeMillis()) / 1000);
     }
 }
