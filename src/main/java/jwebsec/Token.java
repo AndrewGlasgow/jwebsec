@@ -1,15 +1,19 @@
 package jwebsec;
 
+import java.io.Serializable;
+
 /**
  * <code>Token</code> encapsulates a token ID and its expiration time.
  * <p>
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.1
+ * @version 0.1.2
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
-public final class Token {
+public final class Token implements Serializable {
+    
+    private static final long serialVersionUID = 202502271934L;
     
     private final String id;
     private final long expiryTime;
