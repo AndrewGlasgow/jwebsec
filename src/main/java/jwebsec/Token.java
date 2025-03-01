@@ -1,5 +1,6 @@
 package jwebsec;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 /**
@@ -8,7 +9,7 @@ import java.io.Serializable;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.2
+ * @version 0.1.3
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class Token implements Serializable {
@@ -52,6 +53,7 @@ public final class Token implements Serializable {
      * 
      * @return true if this token is expired
      */
+    @Transient
     public boolean isExpired() {
         return expiryTime <= System.currentTimeMillis();
     }
@@ -60,6 +62,7 @@ public final class Token implements Serializable {
      * Returns true if this token is valid, e.g., not expired.
      * @return true if this token is valid
      */
+    @Transient
     public boolean isValid() {
         return expiryTime > System.currentTimeMillis();
     }
@@ -69,6 +72,7 @@ public final class Token implements Serializable {
      * 
      * @return seconds until token expiration
      */
+    @Transient
     public int getSecondsUntilExpiration() {
         return (int)((expiryTime - System.currentTimeMillis()) / 1000);
     }
