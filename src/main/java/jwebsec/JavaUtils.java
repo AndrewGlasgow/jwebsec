@@ -6,7 +6,7 @@ package jwebsec;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.3.0
+ * @version 0.3.1
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class JavaUtils {
@@ -20,7 +20,8 @@ public final class JavaUtils {
     public static int hashCode(Object... items) {
         int hash = 0;
         for (int i = 0; i < items.length; i++) {
-            hash += 31 * (items[i] == null ? -1 : i * items[i].hashCode());
+            hash += 31 * (items[i] == null ?
+                    -1 : (i + 1) * items[i].hashCode());
         }
         return hash;
     }
