@@ -6,10 +6,24 @@ package jwebsec;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.2.0
+ * @version 0.3.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class JavaUtils {
+    
+    /**
+     * Generate a hash code for a vararg array of items.
+     * 
+     * @param items a vararg array of items
+     * @return hash code
+     */
+    public static int hashCode(Object... items) {
+        int hash = 0;
+        for (int i = 0; i < items.length; i++) {
+            hash += 31 * (items[i] == null ? -1 : i * items[i].hashCode());
+        }
+        return hash;
+    }
     
     /**
      * This method performs a null safe comparison of two
@@ -23,7 +37,7 @@ public final class JavaUtils {
      * <ul>
      *   <li>-1 if (ref1 != null &amp;&amp; ref2 == null) ||
      *     (ref1.compareTo(ref2) &lt; 0)</li>
-     *   <li>0 if ref1 == ref2 || ref1.equals(ref2)</li>
+     *   <li>0 if ref1 == ref2 || ref1.compareTo(ref2) == 0</li>
      *   <li>1 if (ref1 == null &amp;&amp; ref != null) ||
      *     (ref1.compareTo(ref2) &gt; 0)</li>
      * </ul>
