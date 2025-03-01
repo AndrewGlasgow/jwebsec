@@ -1,1 +1,1 @@
-The jWebSec project is meant to provide straightforward, easy-to-use, framework agnostic security modules for Java Servlet 6+ web applications using the Jakarta namespace.
+The jWebSec project is meant to provide straightforward, easy-to-use, framework agnostic security modules for Java Servlet 6.0+ web applications using the Jakarta namespace. One of the project's goals is to be lightweight and self-contained, avoiding the use of any third party dependencies which may potentially introduce additional vulnerabilities.
