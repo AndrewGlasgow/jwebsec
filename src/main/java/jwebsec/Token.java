@@ -9,10 +9,10 @@ import java.io.Serializable;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
-public final class Token implements Serializable {
+public final class Token implements Comparable<Token>, Serializable {
     
     private static final long serialVersionUID = 202502271934L;
     
@@ -75,5 +75,23 @@ public final class Token implements Serializable {
     @Transient
     public int getSecondsUntilExpiration() {
         return (int)((expiryTime - System.currentTimeMillis()) / 1000);
+    }
+    
+    @Override
+    public int compareTo(Token t) {
+        int result;
+        if (this == t) {
+            result = 0;
+        } else if (t == null) {
+            result = -1;
+        } else if ((result = id.compareTo(t.id)) == 0) {
+            long diff = expiryTime - t.expiryTime;
+            if (diff == 0) {
+                result = 0;
+            } else {
+                result = diff < 0 ? -1 : 1;
+            }
+        }
+        return result;
     }
 }
