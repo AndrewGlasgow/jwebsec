@@ -10,7 +10,7 @@ import static jwebsec.JavaUtils.nullSafeEquals;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.1.1
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class HttpClient implements Comparable<HttpClient>, Serializable {
@@ -96,7 +96,7 @@ public final class HttpClient implements Comparable<HttpClient>, Serializable {
     public boolean equals(final Object ref) {
         boolean eq = this == ref;
         if (!eq && ref instanceof HttpClient client) {
-            eq = client.getIpAddress().equals(client.ipAddress)
+            eq = ipAddress.equals(client.ipAddress)
                     && nullSafeEquals(userAgent, client.userAgent)
                     && nullSafeEquals(fingerprint, client.fingerprint);
         }
