@@ -4,12 +4,13 @@ import java.beans.Transient;
 import java.io.Serializable;
 
 /**
- * <code>Token</code> encapsulates a token ID and its expiration time.
+ * <code>Token</code> encapsulates a security token ID/name, value, and expiry
+ * time.
  * <p>
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.2.0
+ * @version 0.3.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class Token implements Comparable<Token>, Serializable {
@@ -17,16 +18,19 @@ public final class Token implements Comparable<Token>, Serializable {
     private static final long serialVersionUID = 202502271934L;
     
     private final String id;
+    private final String value;
     private final long expiryTime;
     
     /**
      * Constructor.
      * 
      * @param id the token ID
+     * @param value the token's value
      * @param expiryTime the token's UTC expiration time
      */
-    public Token(String id, long expiryTime) {
+    public Token(String id, String value, long expiryTime) {
         this.id = id;
+        this.value = value;
         this.expiryTime = expiryTime;
     }
     
@@ -37,6 +41,15 @@ public final class Token implements Comparable<Token>, Serializable {
      */
     public String getId() {
         return id;
+    }
+    
+    /**
+     * Get this token's value.
+     * 
+     * @return value
+     */
+    public String getValue() {
+        return value;
     }
     
     /**
@@ -78,13 +91,30 @@ public final class Token implements Comparable<Token>, Serializable {
     }
     
     @Override
+    public boolean equals(Object ref) {
+        boolean eq = this == ref;
+        if (!eq && ref instanceof Token token) {
+            eq = id.equals(token.id)
+                    && value.equals(token.value)
+                    && expiryTime == token.expiryTime;
+        }
+        return eq;
+    }
+    
+    @Override
+    public int hashCode() {
+        return JavaUtils.hashCode(id, value);
+    }
+    
+    @Override
     public int compareTo(Token t) {
         int result;
         if (this == t) {
             result = 0;
         } else if (t == null) {
             result = -1;
-        } else if ((result = id.compareTo(t.id)) == 0) {
+        } else if ((result = id.compareTo(t.id)) == 0
+                    && (result = value.compareTo(t.value)) == 0) {
             long diff = expiryTime - t.expiryTime;
             if (diff == 0) {
                 result = 0;
