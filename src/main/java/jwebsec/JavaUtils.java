@@ -6,10 +6,13 @@ package jwebsec;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.3.1
+ * @version 0.4.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class JavaUtils {
+    
+    /* System line separator: LF on *nix, CR+LF on Windows. */
+    public static final String LS = System.lineSeparator();
     
     /**
      * Generate a hash code for a vararg array of items.
