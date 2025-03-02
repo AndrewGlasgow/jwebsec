@@ -12,16 +12,16 @@ import java.util.Random;
  * fallback to <code>java.util.Random</code> if no strong algorithm is
  * available.
  * <p>
- *   It is generally recommended to use alphanumeric tokens, as that should
- *   provide ample security without requiring any special encoding, such as is
- *   generally the case for Base-64 strings which must be URL encoded before
- *   being passed as a request parameter in an URL.
+ *   It is generally recommended to use alphanumeric (Base-62) tokens, as that
+ *   should provide ample security without requiring any special encoding, such
+ *   as is generally the case for Base-64 strings which must be URL encoded
+ *   before being passed as a request parameter in an URL.
  * </p>
  * <p>
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.2.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class RandomTokenGenerator {
@@ -129,6 +129,7 @@ public final class RandomTokenGenerator {
         return new Token(
                 id,
                 createCharTokenValue(length, ALPHANUMERIC_CHARS.length),
+                System.currentTimeMillis(),
                 expiryTime);
     }
     
@@ -150,7 +151,10 @@ public final class RandomTokenGenerator {
         byte[] bytes = new byte[length];
         RNG.nextBytes(bytes);
         return new Token(
-                id, Base64.getEncoder().encodeToString(bytes), expiryTime);
+                id,
+                Base64.getEncoder().encodeToString(bytes),
+                System.currentTimeMillis(),
+                expiryTime);
     }
     
     /**
@@ -164,6 +168,10 @@ public final class RandomTokenGenerator {
      */
     public Token createHexadecimalToken(
             String id, int length, long expiryTime) {
-        return new Token(id, createCharTokenValue(length, 16), expiryTime);
+        return new Token(
+                id,
+                createCharTokenValue(length, 16),
+                System.currentTimeMillis(),
+                expiryTime);
     }
 }

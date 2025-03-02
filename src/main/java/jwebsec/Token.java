@@ -10,7 +10,7 @@ import java.io.Serializable;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.3.0
+ * @version 0.4.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class Token implements Comparable<Token>, Serializable {
@@ -19,6 +19,7 @@ public final class Token implements Comparable<Token>, Serializable {
     
     private final String id;
     private final String value;
+    private final long issuedTime;
     private final long expiryTime;
     
     /**
@@ -26,11 +27,13 @@ public final class Token implements Comparable<Token>, Serializable {
      * 
      * @param id the token ID
      * @param value the token's value
+     * @param issuedTime
      * @param expiryTime the token's UTC expiration time
      */
-    public Token(String id, String value, long expiryTime) {
+    public Token(String id, String value, long issuedTime, long expiryTime) {
         this.id = id;
         this.value = value;
+        this.issuedTime = issuedTime;
         this.expiryTime = expiryTime;
     }
     
@@ -50,6 +53,33 @@ public final class Token implements Comparable<Token>, Serializable {
      */
     public String getValue() {
         return value;
+    }
+    
+    /**
+     * Get the UTC time this token was issued.
+     * 
+     * @return issued time
+     */
+    public long getIssuedTime() {
+        return issuedTime;
+    }
+    
+    /**
+     * Get the current age of this token in milliseconds.
+     * 
+     * @return current age in milliseconds
+     */
+    public long getCurrentAge() {
+        return System.currentTimeMillis() - issuedTime;
+    }
+    
+    /**
+     * Get the current age of this token in seconds.
+     * 
+     * @return current age in seconds
+     */
+    public long getCurrentAgeInSeconds() {
+        return getCurrentAge() / 1000;
     }
     
     /**
@@ -96,6 +126,7 @@ public final class Token implements Comparable<Token>, Serializable {
         if (!eq && ref instanceof Token token) {
             eq = id.equals(token.id)
                     && value.equals(token.value)
+                    && issuedTime == token.issuedTime
                     && expiryTime == token.expiryTime;
         }
         return eq;
@@ -115,7 +146,10 @@ public final class Token implements Comparable<Token>, Serializable {
             result = -1;
         } else if ((result = id.compareTo(t.id)) == 0
                     && (result = value.compareTo(t.value)) == 0) {
-            long diff = expiryTime - t.expiryTime;
+            long diff = issuedTime - t.issuedTime;
+            if (diff == 0) {
+                diff = expiryTime - t.expiryTime;
+            }
             if (diff == 0) {
                 result = 0;
             } else {
