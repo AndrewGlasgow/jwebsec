@@ -10,7 +10,7 @@ import java.io.Serializable;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.4.0
+ * @version 0.4.1
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class Token implements Comparable<Token>, Serializable {
@@ -69,6 +69,7 @@ public final class Token implements Comparable<Token>, Serializable {
      * 
      * @return current age in milliseconds
      */
+    @Transient
     public long getCurrentAge() {
         return System.currentTimeMillis() - issuedTime;
     }
@@ -78,6 +79,7 @@ public final class Token implements Comparable<Token>, Serializable {
      * 
      * @return current age in seconds
      */
+    @Transient
     public long getCurrentAgeInSeconds() {
         return getCurrentAge() / 1000;
     }
