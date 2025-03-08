@@ -1,7 +1,5 @@
 package jwebsec;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Random;
 
@@ -21,7 +19,7 @@ import java.util.Random;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.2.0
+ * @version 0.3.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class RandomTokenGenerator {
@@ -62,42 +60,23 @@ public final class RandomTokenGenerator {
         return length;
     }
     
-    /**
-     * Generate a seed for RNG.
-     * 
-     * @return an RNG seed
-     */
-    private static long generateSeed() {
-        long seed = 31 * System.currentTimeMillis();
-        for (int i = 0; i < 8; i++) {
-            seed *= 127 - (0xFF & (seed >> (8 * i)));
-        }
-        return seed;
-    }
-    
     private final Random RNG;
     
     /**
-     * The default constructor will automatically generate a seed for RNG.
+     * Default <code>RandomTokenGenerator</code> constructor.
      */
     public RandomTokenGenerator() {
-        this(generateSeed());
+        RNG = RNGUtil.createRandomInstance();
     }
     
     /**
-     * Construct a new <code>TokenGenerator</code> with the specified seed.
+     * Construct a new <code>RandomTokenGenerator</code> with the specified
+     * seed.
      * 
      * @param seed RNG seed
      */
     public RandomTokenGenerator(long seed) {
-        Random rng;
-        try {
-            rng = SecureRandom.getInstanceStrong();
-            rng.setSeed(seed);
-        } catch (NoSuchAlgorithmException e) {
-            rng = new Random(seed);
-        }
-        RNG = rng;
+        RNG = RNGUtil.createRandomInstance(seed);
     }
     
     /**
