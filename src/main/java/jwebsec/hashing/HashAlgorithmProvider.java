@@ -9,7 +9,7 @@ package jwebsec.hashing;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.1.1
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public interface HashAlgorithmProvider {
@@ -56,6 +56,7 @@ public interface HashAlgorithmProvider {
      * @param password the password to be hashed
      * @param salt the hashing salt value
      * @return resulting hash value
+     * @throws HashException
      */
-    public byte[] hash(char[] password, byte[] salt);
+    public byte[] hash(char[] password, byte[] salt) throws HashException;
 }
