@@ -16,7 +16,7 @@ import java.io.IOException;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.1
+ * @version 0.1.2
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class UserLogoutController extends HttpServlet {
@@ -49,6 +49,8 @@ public final class UserLogoutController extends HttpServlet {
         }
         response.setHeader(
                 "Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setIntHeader("Expires", 0);
         response.setHeader("Clear-Site-Data", "\"*\"");
         response.sendRedirect(uri);
     }
