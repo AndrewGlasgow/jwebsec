@@ -14,7 +14,7 @@ import java.util.Random;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.1.1
  * @author <a href="andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class RNGUtil {
@@ -47,7 +47,7 @@ public final class RNGUtil {
      * @return random seed
      */
     public static long generateRandomSeed() {
-        return RNG.nextLong();
+        return RNG.nextLong() ^ RNG.nextLong();
     }
     
     /**
