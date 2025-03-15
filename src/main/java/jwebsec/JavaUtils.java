@@ -6,7 +6,7 @@ package jwebsec;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.4.0
+ * @version 0.5.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class JavaUtils {
@@ -77,6 +77,20 @@ public final class JavaUtils {
             eq = ref1.equals(ref2);
         }
         return eq;
+    }
+    
+    /**
+     * Combine two byte arrays into a single resulting array.
+     * 
+     * @param a1 first array
+     * @param a2 second array
+     * @return the combined array
+     */
+    public static byte[] combine(byte[] a1, byte[] a2) {
+        byte[] result = new byte[a1.length + a2.length];
+        System.arraycopy(a1, 0, result, 0, a1.length);
+        System.arraycopy(a2, 0, result, a1.length, a2.length);
+        return result;
     }
     
     private JavaUtils() {
