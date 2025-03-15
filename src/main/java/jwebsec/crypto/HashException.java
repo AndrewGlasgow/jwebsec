@@ -1,4 +1,4 @@
-package jwebsec.hashing;
+package jwebsec.crypto;
 
 import java.security.GeneralSecurityException;
 

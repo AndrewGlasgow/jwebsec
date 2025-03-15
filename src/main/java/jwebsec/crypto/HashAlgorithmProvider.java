@@ -1,4 +1,4 @@
-package jwebsec.hashing;
+package jwebsec.crypto;
 
 /**
  * The <code>HashAlgorithmProvider</code> interface provides a mechanism for
@@ -9,7 +9,7 @@ package jwebsec.hashing;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.1
+ * @version 0.2.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public interface HashAlgorithmProvider {
@@ -59,4 +59,16 @@ public interface HashAlgorithmProvider {
      * @throws HashException
      */
     public byte[] hash(char[] password, byte[] salt) throws HashException;
+    
+    /**
+     * Hash the password with the specified salt and pepper.
+     * 
+     * @param password the password to be hashed
+     * @param salt the hashing salt value
+     * @param pepper the hashing pepper value
+     * @return resulting hash value
+     * @throws HashException
+     */
+    public byte[] hash(char[] password, byte[] salt, byte[] pepper)
+            throws HashException;
 }

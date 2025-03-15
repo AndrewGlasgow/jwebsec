@@ -1,10 +1,11 @@
-package jwebsec.hashing;
+package jwebsec.crypto;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import jwebsec.JavaUtils;
 
 /**
  * <code>PBKDF2HashProvider</code> provides support for the PBKDF2WithHmacSHA512
@@ -13,7 +14,7 @@ import javax.crypto.spec.PBEKeySpec;
  *   &copy;2025 jWebSec. All rights reserved.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.2.0
  * @author <a href="mailto:andrew_glasgow.dev@outlook.com">Andrew Glasgow</a>
  */
 public final class PBKDF2HashProvider implements HashAlgorithmProvider {
@@ -117,5 +118,11 @@ public final class PBKDF2HashProvider implements HashAlgorithmProvider {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new HashException(e);
         }
+    }
+    
+    @Override
+    public byte[] hash(
+            char[] password, byte[] salt, byte[] pepper) throws HashException {
+        return hash(password, JavaUtils.combine(salt, pepper));
     }
 }
